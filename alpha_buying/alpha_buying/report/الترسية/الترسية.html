@@ -1,0 +1,180 @@
+<head>
+
+	<div style="position: relative; right: 4px; display: inline-block; ">
+		<div style="text-align: center; width: 185px;">
+			<h2>الجمهورية اليمنية</h2>
+			<h5>وزارة الداخلية</h5>
+			<h6>الوكيل لقطاع الموارد البشرية والمالية</h6>
+			<h5>لجنة المشتريات الطبية</h5>
+		</div>
+	</div>
+
+	<div style="position: relative; bottom: 65%; right:20%; display: inline-block; height: 40px;">
+		<p style="position: relative; bottom: 105%;right:27%; font-size: 1rem; font-weight: bold;">بسم الله الرحمن
+			الرحيم
+		</p>
+		<div style=" width: 100px; position: relative; right:42%; bottom: 100%; display: inline-block;">
+			<img alt="photo_header" src=" /files/0.png"
+				style="display: block; max-height: 100px; width: auto; margin: 0 auto;">
+		</div>
+	</div>
+
+
+
+	<link href="/assets/frappe/css/c3.min.css" rel="stylesheet" type="text/css">
+
+
+	<script type="text/javascript" src="/assets/frappe/js/lib/d3.min.js"></script>
+	<script type="text/javascript" src="/assets/frappe/js/lib/c3.min.js"></script>
+	<script type="text/javascript">
+
+		onReady("#chart_div", function () {
+			var chartData = [];
+			{% var q = 0; %}
+			{% for (var j = 0, m = data.length + 1; j < m; j++) { %}
+
+				var tempData{%=j%} =[];
+
+			{% for (var i = 1, l = report.columns.length; i < l; i++) { %}
+				{% if (__(report.columns[i].label) != __("Quotation")) { %}
+
+					{% if (j == 0) { %}
+						{% if (i == 1) { %}
+								tempData{%=j %} [{%=i%} -1] = \"x\";
+						{% } else { %}
+
+								tempData{%=j %} [{%=i%} -1] = Math.log(parseInt(\"{%= report.columns[i].label %}\".replace(\"Qty: \",\"\"))) / Math.LN10;
+							{% } %}
+			{% } else { %}
+			{% if (i == 1) { %}
+								tempData{%=j %} [{%=i%} -1] = \"{%= data[j-1][report.columns[i].fieldname] %} \";
+			{% } else { %}
+							tempData{%=j %} [{%=i%} - 1] = {% if (data[j - 1][report.columns[i].fieldname] == "") {
+			if (i > 2) { %}
+										tempData{%=j %} [{%=i%} -2]
+		{% } else { %}
+		0
+		{% } } else { %}
+		{%= data[j - 1][report.columns[i].fieldname] %}
+		{% } %};
+		{% } %};
+		{% } %}
+		{% } else { %}
+		{% if (j == 0) { %}
+			{% if (i < l - 1) { %}
+								tempData{%=j %} [{%=i%} -1] = Math.log(parseInt(\"{%= report.columns[i+1].label %}\".replace(\"Qty: \",\"\"))-1) / Math.LN10;
+							{% } else { %}
+								tempData{%=j %} [{%=i%}-1] = Math.log(2 * parseInt(\"{%= report.columns[i-1].label %}\".replace(\"Qty: \",\"\"))) / Math.LN10;
+							{% } %}
+				{% } else { %}
+
+				tempData{%=j%}[{%=i%}-1] = tempData{%=j%}[{%=i%}-2];
+		{% } %}
+
+		{% } %}
+
+		{% } %}
+		chartData[{%=j%}] = tempData{%=j %};
+		{% } %}
+		console.log(chartData);
+
+		hold = {
+			bindto: "#chart_div", data: {
+				x: "x",
+				columns: chartData
+			},
+			axis: {
+				x: {
+					tick: {
+						format: function (x22) { return Math.pow(10, x22).toFixed(0); },
+						culling: {
+							max: {%=report.columns.length %} / 2
+						}
+
+					}
+				}
+			},
+			point: {
+				show: false
+			}
+		};
+		console.log(hold);
+		var chart = c3.generate(hold);
+		});
+
+		function onReady(selector, callback) {
+			var intervalID = window.setInterval(function () {
+				if (document.querySelector(selector) !== undefined) {
+					window.clearInterval(intervalID);
+					callback.call(this);
+				}
+			}, 500);
+		}
+
+
+	</script>
+
+</head>
+
+<h4 class="text-center">{%= filters.item %} </h4>
+
+<hr style="color:black; background-color:black; height:2px; margin-top: 0; padding-top: 0;">
+<p class="text-center">ممارسة({{ filters.select_the_of_requests }})لعام ( 2024 )الربع ({{
+	filters.select_the_quarter }}) ({{ filters.select_the_destination }})</p>
+<hr style="color:black; background-color:black; height:2px;margin-top: 0; padding-top: 0;">
+
+<p class="text-center">كشف تحليل وترسية على مستوى الصنف({{ filters.item_name }}) الكمية {%=
+	data[0][report.columns[2].fieldname] %}</p>
+<hr style="color:black; background-color:black; height:2px; margin-top: 0; padding-top: 0;">
+<hr>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			{% for(var i=0, l=report.columns.length; i<l; i++) { %} <th style="width: 15%">{%= report.columns[i].label
+				%}</th>
+				{% } %}
+
+		</tr>
+	</thead>
+	<tbody>
+
+		{% for(var i=0, l=data.length; i<l; i++) { %} <tr>
+
+			{% for(var j=0,m=report.columns.length; j<m; j++) { %} <td style="width: 15%">{%=
+				data[i][report.columns[j].fieldname] %}</td>
+				{% } %}
+
+				</tr>
+				{% } %}
+				<td colspan="{%= report.columns.length %}">
+					<p>ملاحظات/............................................................................................................................................................................................................................................................................
+					</p>
+				</td>
+
+	</tbody>
+</table>
+
+<style>
+	div {
+		font-size: 8px;
+	}
+
+	div span {
+		margin-right: 70px;
+		/* يمكنك تعديل قيمة المسافة حسب الحاجة */
+		border-bottom: 1px solid black;
+		/* إضافة خط تحت كل كلمة */
+		padding-bottom: 0px;
+		/* تعديل المسافة بين الكلمة والخط (اختياري) */
+	}
+</style>
+
+<div>
+	<span>المختص</span>
+	<span>مدير التموين بالمستشفى</span>
+	<span>مدير المشتروات بالمستشفى</span>
+	<span>المدير المالي بالمستشفى</span>
+	<span>عضو اللجنة</span>
+	<span>عضو اللجنة</span>
+	<span>رئيس اللجنة</span>
+</div>

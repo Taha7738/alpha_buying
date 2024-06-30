@@ -1,0 +1,119 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-04-29 20:39:31.830554",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "company",
+  "purpose",
+  "column_break_sldp",
+  "transaction_date",
+  "status",
+  "column_break_tjbh",
+  "select_the_destination",
+  "select_the_quarter",
+  "select_the_of_requests",
+  "section_break_pmvd",
+  "items"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "\u0633\u0644\u0633\u0644\u0629 \u0627\u0644\u062a\u0633\u0645\u064a\u0629",
+   "options": "MAT-MR-.YYYY.-",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u0627\u0644\u0634\u0631\u0643\u0629",
+   "reqd": 1
+  },
+  {
+   "fieldname": "purpose",
+   "fieldtype": "Select",
+   "label": "\u0627\u0644\u063a\u0631\u0636",
+   "options": "\u0627\u0644\u0634\u0631\u0627\u0621",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_sldp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "transaction_date",
+   "fieldtype": "Date",
+   "label": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u0645\u0639\u0627\u0645\u0644\u0629"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "\u0627\u0644\u062d\u0627\u0644\u0629",
+   "options": "\u0645\u0634\u0631\u0648\u0639\u0629\n\u062a\u0645 \u0627\u0644\u0637\u0644\u0628\n\u0645\u0631\u0641\u0648\u0636\u0629\n\u0645\u0644\u063a\u064a\u0629",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_tjbh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "select_the_destination",
+   "fieldtype": "Link",
+   "label": "\u062d\u062f\u062f \u0627\u0644\u062c\u0647\u0629",
+   "options": "Authority"
+  },
+  {
+   "fieldname": "select_the_quarter",
+   "fieldtype": "Link",
+   "label": "\u062d\u062f\u062f \u0627\u0644\u0631\u0628\u0639",
+   "options": "Quarter"
+  },
+  {
+   "fieldname": "section_break_pmvd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "\u0627\u0644\u0627\u0635\u0646\u0627\u0641",
+   "options": "Material Request Item"
+  },
+  {
+   "fieldname": "select_the_of_requests",
+   "fieldtype": "Link",
+   "label": "\u062d\u062f\u062f \u0646\u0648\u0639\u064a\u0629 \u0627\u0644\u0637\u0644\u0628",
+   "options": "Request Type"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-05-02 01:27:44.945352",
+ "modified_by": "Administrator",
+ "module": "alpha buying",
+ "name": "Material Request",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

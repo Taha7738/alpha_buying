@@ -1,0 +1,43 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-29 21:43:42.720167",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "add_quarter"
+ ],
+ "fields": [
+  {
+   "fieldname": "add_quarter",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "\u0627\u0636\u0627\u0641\u0629 \u0627\u0644\u0631\u0628\u0639",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-04-29 21:44:18.611549",
+ "modified_by": "Administrator",
+ "module": "alpha buying",
+ "name": "Quarter",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
